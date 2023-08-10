@@ -9,7 +9,7 @@ interface IImportCategory {
 class ImportCategoryUseCase {
 	constructor(private categoriesRepository: ICategoriesRepository) {}
 
-	loadCategories(file: Express.Multer.File): void {
+	loadCategories(file: Express.Multer.File): IImportCategory[] {
 		const stream = fs.createReadStream(file.path);
 		const categories: IImportCategory[] = [];
 
