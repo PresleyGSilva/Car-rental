@@ -1,25 +1,31 @@
-import { ICategoriesRepository } from '../../model/repositories/ICategoriesRepository';
+import { inject, injectable } from "tsyringe";
 
-interface Irequest {
-	name: string;
-	description: string;
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
+import { AppError } from "@shared/errors/AppError";
+
+interface IRequest {
+  name: string;
+  description: string;
 }
-/**
- * [x] -  Definir o tipo de retorno
- * [x] - Alterar o retorno de erro
- * [x] - acessar o repositorio
- */
 
+@injectable()
 class CreateCategoryUseCase {
-	constructor(private categoriesRepository: ICategoriesRepository) {}
-	execute({ name, description }: Irequest): void {
-		const categoryAlreadyExists = this.categoriesRepository.findByName(name);
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
+  ) {}
 
-		if (categoryAlreadyExists) {
-			throw new Error('Category already exists!');
-		}
-		this.categoriesRepository.create({ name, description });
-	}
+  async execute({ description, name }: IRequest): Promise<void> {
+    const categoryAlreadyExists = await this.categoriesRepository.findByName(
+      name
+    );
+
+    if (categoryAlreadyExists) {
+      throw new AppError("Category already exists!");
+    }
+
+    this.categoriesRepository.create({ name, description });
+  }
 }
 
 export { CreateCategoryUseCase };

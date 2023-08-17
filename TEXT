@@ -1,9 +1,0 @@
-/**
- * SOLID
-S => SRP - Single Responsability Principle (Principio da Responsabilidade Única)
-O => OCP - Open-Closed Principle (Principio aberto/fechado)
-L => LSP - Liskov Substituion Principle (Principio de Substituição de Liskov)
-I => ISP- Interface Segregation Principle (Principio Segregação de Interface)
-D => DIP - Dependency Inversion Principle (Principio da Inversão de Dependência)
-
- */
